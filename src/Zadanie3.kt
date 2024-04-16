@@ -16,17 +16,17 @@ class ProductFactory
     }
 }
 
-fun Zadanie3()
+fun zadanie3()
 {
+    println("\n Zadanie 3");
+    
     val productFactory = ProductFactory();
     val products = listOf<Product>(
         productFactory.CreateProduct("Banana", 5.0, true),
         productFactory.CreateProduct("Apple", 3.0, true),
         productFactory.CreateProduct("Orange", 8.0, false)
     );
-
-    println("Zadanie 3");
-
+    
     for(item in products)
     {
         println("Name: ${item.Name} Price: ${item.Price} Availability: ${item.Availability}");

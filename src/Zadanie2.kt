@@ -37,8 +37,10 @@ class Headphones : AProduct()
     };
 }
 
-fun Zadanie2()
+fun zadanie2()
 {
+    println("\n Zadanie 2");
+    
     val aProductFactory = AProductFactory();
 
     val aProducts = listOf<AProduct?>(
@@ -46,5 +48,5 @@ fun Zadanie2()
         aProductFactory.CreateProduct("Smartphone"),
         aProductFactory.CreateProduct("Headphones"))
 
-    println("Zadanie 2 \n $aProducts \n");
+    println(aProducts);
 }

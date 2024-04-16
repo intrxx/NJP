@@ -1,37 +1,112 @@
-﻿class Email private constructor(
-    val sender: String,
-    val recipient: String,
-    val topic: String,
-    val content: String?)
+﻿class TaskManager()
 {
-    class EmailBuilder
+    companion object
     {
-        private var sender: String = "";
-        private var recipient: String = "";
-        private var topic: String = "";
-        private var content: String? = "";
+        fun addTask(taskName: String, taskDesc: String, taskDeadline: String): Task
+        {
+            return Task(taskName, taskDesc, taskDeadline);
+        }
+        
+        fun cloneTask(taskToClone: Task): Task
+        {
+            return taskToClone.clone();
+        }
 
-        fun setSender(sender: String) = apply { this.sender = sender };
-        fun setRecipient(recipient: String) = apply { this.recipient = recipient };
-        fun setTopic(topic: String) = apply { this.topic = topic };
-        fun setContent(content: String?) = apply { this.content = content };
-
-        fun build() = Email(sender, recipient, topic, content);
+        fun modifyTask(taskToModify: Task, newTaskValue: Any?, propertyToModify: String): Task
+        {
+            when (propertyToModify)
+            {
+                "0" -> taskToModify.taskName = newTaskValue.toString();
+                "1" -> taskToModify.taskDesc = newTaskValue.toString();
+                "2" -> taskToModify.taskDeadline = newTaskValue.toString();
+                else -> null;
+            }
+            return taskToModify;
+        }
     }
 }
 
-fun Zadanie5()
+class Task(var taskName: String, var taskDesc: String, var taskDeadline: String): Cloneable 
+{
+    var Name = taskName;
+    var Desc = taskDesc;
+    var Deadline = taskDeadline;
+    
+    public override fun clone(): Task 
+    {
+        return super.clone() as Task;
+    }
+}
+
+fun addTask() : Task
+{
+    var taskName: String = "";
+    var taskDesc: String = "";
+    var taskDeadline: String = "";
+    
+    println("Specify Task Name, Description and Deadline");
+    taskName = readln();
+    taskDesc = readln();
+    taskDeadline = readln();
+    return TaskManager.addTask(taskName, taskDesc, taskDeadline);
+}
+
+fun tryToClone(taskToClone: Task?) : Task?
+{
+    if(taskToClone == null)
+    {
+        println("Task can't be null");
+        return null;
+    }
+    
+    return TaskManager.cloneTask(taskToClone);
+}
+
+fun modifyTask(taskToModify: Task?): Task
+{
+    var propertyToModify: String = "-1";
+    var newTaskValue: Any? = null;
+    
+    println("Specify what task property to modify ([0] - Task Name, [1] - Task Desc [2] - Task Deadline) and the new value");
+    
+    propertyToModify = readln();
+    newTaskValue = readln();
+
+    if (taskToModify != null) {
+        return TaskManager.modifyTask(taskToModify, newTaskValue, propertyToModify)
+    };
+    
+    return Task("", "", "");
+}
+
+fun printTask(taskToPrint: Task?)
+{
+    println("Task Name: " + taskToPrint?.taskName + " Description: " + taskToPrint?.taskDesc + " Deadline: " + taskToPrint?.taskDeadline);
+}
+
+fun zadanie5()
 {
     println("\n Zadanie 5");
-
-    val emails = listOf<Email>(
-        Email.EmailBuilder().setSender("Damian").setRecipient("Michal").setTopic("Zadanie 4 NJP").setContent("...").build(),
-        Email.EmailBuilder().setSender("Mikolaj").setRecipient("Adam").setTopic("Globalne ocieplenie").build(),
-        Email.EmailBuilder().setSender("Ania").setRecipient("Klaudia").setTopic("Wiersz").build()
-    );
-
-    for(item in emails)
+    
+    var option: String? = "";
+    var currentTask: Task? = null;
+    
+    while(option != "0") 
     {
-        println("Sender: ${item.sender} Recipient: ${item.recipient} Topic: ${item.topic} Content: ${item.content}");
-    }
+        println("0 - Quit")
+        println("1 - Add task")
+        println("2 - Clone task");
+        println("3 - Modify task");
+        println("4 - Print task");
+        
+        option = readlnOrNull();
+        when(option)
+        {
+            "1" -> currentTask = addTask();
+            "2" -> tryToClone(currentTask);
+            "3" -> currentTask = modifyTask(currentTask);
+            "4" -> printTask(currentTask);
+            else -> null;
+        }
+    } 
 }

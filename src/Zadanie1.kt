@@ -1,4 +1,4 @@
-﻿object TaskManager
+﻿object sTaskManager
 {
     private var Tasks = mutableMapOf<Int, String>();
     private var TaskNumber: Int = 0;
@@ -16,12 +16,12 @@
     }
 }
 
-fun Zadanie1()
+fun zadanie1()
 {
-    TaskManager.addTask("DoSomething");
-    TaskManager.addTask("DoNothing");
-
-    println("Zadanie 1");
-    TaskManager.printAllTasks();
-    println();
+    println("\n Zadanie 1");
+    
+    sTaskManager.addTask("DoSomething");
+    sTaskManager.addTask("DoNothing");
+    
+    sTaskManager.printAllTasks();
 }
