@@ -12,14 +12,14 @@
             return taskToClone.clone();
         }
 
-        fun modifyTask(taskToModify: Task, newTaskValue: Any?, propertyToModify: String): Task
+        fun modifyTask(taskToModify: Task, newTaskValue: String, propertyToModify: String): Task
         {
             when (propertyToModify)
             {
                 "0" -> taskToModify.taskName = newTaskValue.toString();
                 "1" -> taskToModify.taskDesc = newTaskValue.toString();
                 "2" -> taskToModify.taskDeadline = newTaskValue.toString();
-                else -> null;
+                else -> println("Property $propertyToModify not recognized");
             }
             return taskToModify;
         }
@@ -34,15 +34,21 @@ class Task(var taskName: String, var taskDesc: String, var taskDeadline: String)
     }
 }
 
-fun addTask() : Task
+fun addTask(): Task
 {
     var taskName: String = "";
     var taskDesc: String = "";
     var taskDeadline: String = "";
     
     println("Specify Task Name, Description and Deadline");
+
+    print("Task Name: ");
     taskName = readln();
+
+    print("Task Description: ");
     taskDesc = readln();
+
+    print("Task Deadline: ");
     taskDeadline = readln();
     return TaskManager.addTask(taskName, taskDesc, taskDeadline);
 }
@@ -63,15 +69,19 @@ fun modifyTask(taskToModify: Task?): Task
     var propertyToModify: String = "-1";
     var newTaskValue: Any? = null;
     
-    println("Specify what task property to modify ([0] - Task Name, [1] - Task Desc [2] - Task Deadline) and the new value");
+    println("Specify what task property to modify ([0] - Task Name, [1] - Task Desc, [2] - Task Deadline) and the new value");
     
+    print("Property to Modify: ");
     propertyToModify = readln();
+
+    print("New property value: ");
     newTaskValue = readln();
 
     if (taskToModify != null) {
         return TaskManager.modifyTask(taskToModify, newTaskValue, propertyToModify)
     };
     
+    println("Task can't be null");
     return Task("", "", "");
 }
 
@@ -95,14 +105,17 @@ fun zadanie5()
         println("3 - Modify task");
         println("4 - Print task");
         
+        print("Option: ");
         option = readlnOrNull();
+        
         when(option)
         {
+            "0" -> println("Bye");
             "1" -> currentTask = addTask();
             "2" -> tryToClone(currentTask);
             "3" -> currentTask = modifyTask(currentTask);
             "4" -> printTask(currentTask);
-            else -> null;
+            else -> println("Unknown option");
         }
     } 
 }
