@@ -28,10 +28,6 @@
 
 class Task(var taskName: String, var taskDesc: String, var taskDeadline: String): Cloneable 
 {
-    var Name = taskName;
-    var Desc = taskDesc;
-    var Deadline = taskDeadline;
-    
     public override fun clone(): Task 
     {
         return super.clone() as Task;
