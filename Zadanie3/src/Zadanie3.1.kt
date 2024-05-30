@@ -1,4 +1,4 @@
-﻿fun Zad1() {
+﻿fun zad1() {
     val product1: Product = Product(".", 5.0, StandardDelivery())
     val product2: Product = Product("..", 10.0, ExpressDelivery())
     val product3: Product = Product("...", 20.0, EconomicDelivery())

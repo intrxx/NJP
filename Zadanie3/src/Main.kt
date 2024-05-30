@@ -1,4 +1,4 @@
 fun main() 
 {
-    Zad1();
+    zad1();
 }
